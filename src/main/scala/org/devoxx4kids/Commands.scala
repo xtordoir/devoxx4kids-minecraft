@@ -29,7 +29,7 @@ trait Devoxx4kidsCommands {
         entity.teleport(checkpoints(args(0)))          
       } else {
         val entity =  sender.asInstanceOf[Entity]
-        entity.setVelocity(new Vector(0,10,0))
+        entity.setVelocity(new Vector(0,1,0))
       }
       true
   }
