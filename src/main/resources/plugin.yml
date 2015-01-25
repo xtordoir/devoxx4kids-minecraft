@@ -1,0 +1,18 @@
+main: org.devoxx4kids.TestPlugin
+name: SpigotScalaPlugin
+version: 0.1
+author: xavier
+description: 
+
+commands:
+   pileup:
+      description: This is a demo command.
+      usage: /pileup
+#      permission: SpigotScalaPlugin.basic
+#      permission-message: You don't have <permission>
+   checkpoint:
+      description: This is a demo command.
+      usage: /checkpoint <name>
+   goto:
+      description: This is a demo command.
+      usage: /checkpoint <name>
