@@ -16,7 +16,7 @@ Exemple:
 
 ## Etape 2: goto peut résulter un un saut vers le haut (la magie ne fonctionne pas toujours...)
 
-changer le parametre de chance et le vecteru de saut pour voir...
+changer le parametre de chance et le vecteur de saut pour voir...
 
 ## Etape 3: Event Fleche touche
 
@@ -32,6 +32,9 @@ Pour afficher la distance en blocs, ajouter:
 ```
 
 
+## Etape 5 hmmm petite explosion à l'atterissage?
 
+Modifier la puissance de l'explosion,...
+Ajouter le feu...
 
 

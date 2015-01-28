@@ -25,10 +25,15 @@ trait Devoxx4kidsEvents {
   def handleProjectileHit = (event: ProjectileHitEvent) => {
 
     if (event.getEntityType() == EntityType.ARROW) {  
+
       val arrow = event.getEntity  
+      val location = arrow.getLocation
+      
       arrow.getTheShooter match {
         case player: Player => {
-          player.sendMessage("arrow landed...at :" + arrow.getLocation)
+          val dist = location.distance(player.getLocation)
+          arrow.getWorld.createExplosion(arrow.getLocation, 0.1f)
+          player.sendMessage("Explosion à :" + dist)
         }
         case _ => println("hmm who did that?")
       }
