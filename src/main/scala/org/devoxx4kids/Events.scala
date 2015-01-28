@@ -24,9 +24,12 @@ trait Devoxx4kidsEvents {
 
   def handleProjectileHit = (event: ProjectileHitEvent) => {
 
-    if (event.getEntityType() == EntityType.ARROW) {      
-      event.getEntity.getTheShooter match {
-        case player: Player => player.sendMessage("arrow landed...")
+    if (event.getEntityType() == EntityType.ARROW) {  
+      val arrow = event.getEntity  
+      arrow.getTheShooter match {
+        case player: Player => {
+          player.sendMessage("arrow landed...at :" + arrow.getLocation)
+        }
         case _ => println("hmm who did that?")
       }
     }

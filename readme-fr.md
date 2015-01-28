@@ -22,6 +22,16 @@ changer le parametre de chance et le vecteru de saut pour voir...
 
 Au toucher de fleche, un message s'affiche pour celui qui a lancé la flèche
 
+## Etape 4: Event fleche touche, coordonnées de l'évenement
+
+Pour afficher la distance en blocs, ajouter:
+
+```
+    val dist = arrow.getLocation.distance(player.getLocation)
+    player.sendMessage("Distance :" + dist)
+```
+
+
 
 
 
