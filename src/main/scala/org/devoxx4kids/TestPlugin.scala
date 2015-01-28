@@ -1,6 +1,8 @@
 package org.devoxx4kids
 
 import org.bukkit.event.block.BlockPlaceEvent
+import org.bukkit.event.entity.ProjectileHitEvent
+
 import org.bukkit.event.Listener
 import org.bukkit.event.EventHandler
 
@@ -14,6 +16,7 @@ import org.bukkit.entity.Entity
 case class CommandHandler(name: String, handler: (CommandSender, Command, String, Array[String]) => Boolean)
 
 trait BukkitImplicits {
+
   implicit def toBlockPlace(handler: BlockPlaceEvent => Unit): Listener = {
     new Listener {
       @EventHandler
@@ -22,6 +25,16 @@ trait BukkitImplicits {
       }
     }
   }
+
+  implicit def toProjectileHit(handler: ProjectileHitEvent => Unit): Listener = {
+    new Listener {
+      @EventHandler
+      def onProjectileHit(event: ProjectileHitEvent) {
+        handler(event)
+      }
+    }
+  }
+
 
   implicit def toCommand(handler: (CommandSender, Command, String, Array[String]) => Boolean): CommandExecutor = {
     new CommandExecutor {
@@ -54,36 +67,13 @@ class ScalaPlugin extends JavaPlugin with BukkitImplicits
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
-class TestPlugin extends ScalaPlugin with Devoxx4kidsCommands {
+class TestPlugin extends ScalaPlugin with Devoxx4kidsCommands with Devoxx4kidsEvents {
 
   implicit val plugin = this
 
-  override def onCommand(sender: CommandSender, cmd: Command, label: String, args: Array[String]): Boolean = {
-  	true
-  }
-
-  def handleBlockPlacement = (event: BlockPlaceEvent) => {
-    val player = event.getPlayer
-    val block = event.getBlockPlaced
-
-    val location = block.getLocation()
-    val world = location.getWorld()
-    player.sendMessage("You placed a " + block.getType + " at " + "(" + location.getBlockX + "," + location.getBlockY + "," + location.getBlockZ + ")")
-    
-/*    (1 to 20).foreach { i =>
-      val currentBlock = world.getBlockAt(block.getLocation.add(0,i,0))
-      // Set the block to type 57 (Diamond block!)
-      currentBlock.setType(org.bukkit.Material.DIAMOND_BLOCK)
-    }
-*/  
-
-  }
-
 
   override def onEnable() {
-    getServer.getPluginManager.registerEvents(handleBlockPlacement, this)
+    getServer.getPluginManager.registerEvents(handleProjectileHit, this)
 
-    this.getCommand("checkpoint").setExecutor(checkpointCommand)
-    this.getCommand("goto").setExecutor( CommandHandler("goto", gotoCommand) )
   }
 }

@@ -18,4 +18,10 @@ Exemple:
 
 changer le parametre de chance et le vecteru de saut pour voir...
 
+## Etape 3: Event Fleche touche
+
+Au toucher de fleche, un message s'affiche pour celui qui a lancé la flèche
+
+
+
 
