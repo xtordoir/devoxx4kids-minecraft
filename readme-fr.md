@@ -16,6 +16,6 @@ Exemple:
 
 ## Etape 2: goto peut résulter un un saut vers le haut (la magie ne fonctionne pas toujours...)
 
-changer le parametre de chance et le vecteru de saut pour voir...
+changer le parametre de chance et le vecteur de saut pour voir...
 
 
