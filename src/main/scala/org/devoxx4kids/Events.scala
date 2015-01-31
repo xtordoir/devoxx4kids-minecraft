@@ -19,12 +19,14 @@ import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 
 import org.bukkit.entity.Arrow
+import org.bukkit.entity.Projectile
 import org.bukkit.projectiles.ProjectileSource
 
 trait Devoxx4kidsEvents {
 
   val rnd = new scala.util.Random()
   val arrowChance = 0.5
+  val followingArrow:Option[Projectile] = None
 
   def handleProjectileLaunch = (event: ProjectileLaunchEvent) => {
 
@@ -38,6 +40,12 @@ trait Devoxx4kidsEvents {
           arrow.getWorld.createExplosion(arrow.getLocation, .25f, true)
           player.sendMessage("Explosion!!")
           arrow.remove
+        }
+        case player: Player => {
+          Thread.sleep(100)
+          player.setVelocity(arrow.getVelocity)
+          player.teleport(arrow.getLocation)
+          ()
         }
         case _ => println("hmm who did that?")
       }

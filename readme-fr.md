@@ -42,3 +42,8 @@ Ajouter le feu...
 Avec une chance d'explosion sur place :-/
 Bien sûr, jouer avec la chance, la force d'explosion...
 
+## Etape 7 au lancement de la fleche, le lanceur a la vitesse de la felche ^^
+
+## Etape 8 teleportation a l'aterrisage de sa fleche
+
+
