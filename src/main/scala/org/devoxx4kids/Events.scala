@@ -26,7 +26,7 @@ trait Devoxx4kidsEvents {
 
   val rnd = new scala.util.Random()
   val arrowChance = 0.5
-  val followingArrow:Option[Projectile] = None
+  var followingArrow: Option[Projectile] = None
 
   def handleProjectileLaunch = (event: ProjectileLaunchEvent) => {
 
@@ -42,9 +42,7 @@ trait Devoxx4kidsEvents {
           arrow.remove
         }
         case player: Player => {
-          Thread.sleep(100)
-          player.setVelocity(arrow.getVelocity)
-          player.teleport(arrow.getLocation)
+          followingArrow = Some(arrow)
           ()
         }
         case _ => println("hmm who did that?")
@@ -60,8 +58,10 @@ trait Devoxx4kidsEvents {
       val arrow = event.getEntity  
       val location = arrow.getLocation
       
-      arrow.getTheShooter match {
-        case player: Player => {
+      (arrow, arrow.getTheShooter) match {
+        case (a: Projectile, player: Player) if (Some(a) == followingArrow) => {
+          player.teleport(a.getLocation)
+          followingArrow = None
           val dist = location.distance(player.getLocation)
           arrow.getWorld.createExplosion(arrow.getLocation, 4.0f, true)
           player.sendMessage("Explosion à :" + dist)
