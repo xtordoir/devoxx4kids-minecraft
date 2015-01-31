@@ -2,6 +2,7 @@ package org.devoxx4kids
 
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.ProjectileHitEvent
+import org.bukkit.event.entity.ProjectileLaunchEvent
 
 import org.bukkit.event.Listener
 import org.bukkit.event.EventHandler
@@ -30,6 +31,15 @@ trait BukkitImplicits {
     new Listener {
       @EventHandler
       def onProjectileHit(event: ProjectileHitEvent) {
+        handler(event)
+      }
+    }
+  }
+
+  implicit def toProjectileLaunch(handler: ProjectileLaunchEvent => Unit): Listener = {
+    new Listener {
+      @EventHandler
+      def onProjectileLaunch(event: ProjectileLaunchEvent) {
         handler(event)
       }
     }
@@ -73,6 +83,7 @@ class TestPlugin extends ScalaPlugin with Devoxx4kidsCommands with Devoxx4kidsEv
 
 
   override def onEnable() {
+    getServer.getPluginManager.registerEvents(handleProjectileLaunch, this)
     getServer.getPluginManager.registerEvents(handleProjectileHit, this)
 
   }

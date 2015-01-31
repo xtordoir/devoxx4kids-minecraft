@@ -8,6 +8,7 @@ import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.Listener
 import org.bukkit.event.EventHandler
 
+import org.bukkit.event.entity.ProjectileLaunchEvent
 import org.bukkit.event.entity.ProjectileHitEvent
 
 import org.bukkit.util.Vector
@@ -22,6 +23,28 @@ import org.bukkit.projectiles.ProjectileSource
 
 trait Devoxx4kidsEvents {
 
+  val rnd = new scala.util.Random()
+  val arrowChance = 0.5
+
+  def handleProjectileLaunch = (event: ProjectileLaunchEvent) => {
+
+    if (event.getEntityType() == EntityType.ARROW) {  
+
+      val arrow = event.getEntity  
+      val location = arrow.getLocation
+      
+      arrow.getTheShooter match {
+        case player: Player if (arrowChance < rnd.nextDouble) => {
+          arrow.getWorld.createExplosion(arrow.getLocation, .25f, true)
+          player.sendMessage("Explosion!!")
+          arrow.remove
+        }
+        case _ => println("hmm who did that?")
+      }
+    }
+       
+  }  
+
   def handleProjectileHit = (event: ProjectileHitEvent) => {
 
     if (event.getEntityType() == EntityType.ARROW) {  
@@ -32,13 +55,12 @@ trait Devoxx4kidsEvents {
       arrow.getTheShooter match {
         case player: Player => {
           val dist = location.distance(player.getLocation)
-          arrow.getWorld.createExplosion(arrow.getLocation, 0.1f)
+          arrow.getWorld.createExplosion(arrow.getLocation, 4.0f, true)
           player.sendMessage("Explosion à :" + dist)
         }
         case _ => println("hmm who did that?")
       }
-    }
-       
+    }      
   }  
 }
 
