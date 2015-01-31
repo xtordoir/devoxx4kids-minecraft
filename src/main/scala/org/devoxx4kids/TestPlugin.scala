@@ -62,28 +62,7 @@ class TestPlugin extends ScalaPlugin with Devoxx4kidsCommands {
   	true
   }
 
-  def handleBlockPlacement = (event: BlockPlaceEvent) => {
-    val player = event.getPlayer
-    val block = event.getBlockPlaced
-
-    val location = block.getLocation()
-    val world = location.getWorld()
-    player.sendMessage("You placed a " + block.getType + " at " + "(" + location.getBlockX + "," + location.getBlockY + "," + location.getBlockZ + ")")
-    
-/*    (1 to 20).foreach { i =>
-      val currentBlock = world.getBlockAt(block.getLocation.add(0,i,0))
-      // Set the block to type 57 (Diamond block!)
-      currentBlock.setType(org.bukkit.Material.DIAMOND_BLOCK)
-    }
-*/  
-
-  }
-
-
   override def onEnable() {
-    getServer.getPluginManager.registerEvents(handleBlockPlacement, this)
-
-    this.getCommand("checkpoint").setExecutor(checkpointCommand)
-    this.getCommand("goto").setExecutor( CommandHandler("goto", gotoCommand) )
+    this.getCommand("arrow").setExecutor( CommandHandler("arrow", arrowCommand) )
   }
 }

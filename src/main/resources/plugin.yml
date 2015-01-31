@@ -5,14 +5,8 @@ author: xavier
 description: 
 
 commands:
-   pileup:
+   arrow:
       description: This is a demo command.
-      usage: /pileup
+      usage: /arrow
 #      permission: SpigotScalaPlugin.basic
 #      permission-message: You don't have <permission>
-   checkpoint:
-      description: This is a demo command.
-      usage: /checkpoint <name>
-   goto:
-      description: This is a demo command.
-      usage: /checkpoint <name>
